@@ -48,11 +48,12 @@
     // Set these 3 variables to their DOM elements
 
     var myImage = document.getElementById('coffee-image');
-    var myRevenueMessage = document.getElementById('message');
+    var myRevenueMessage = document.getElementById('revenue');
     var espresso = document.getElementById('espresso');
     var latte = document.getElementById('latte');
     var hotChocolate = document.getElementById('hot-chocolate');
-    var drinksOrdered = [];     
+    var drinksOrdered = []; 
+    var dailyRevenue = 0.00;    
     
     function coffeeBeans() {
         myImage.setAttribute('src', 'static/coffee_beans.jpg');
@@ -71,15 +72,26 @@
         drinksOrdered.push(drinkType);
         console.log(drinksOrdered);
         myImage.setAttribute('src', 'static/coffee_mug.jpg');
-        // console.log("This is" + myImage + " in makeCoffee");
         setTimeout(coffeeBeans, 1500);
+        revenue();
     }
+
+
+    function revenue() {
+          var dailyRevenue = 0;
+          for (i = 0; i < drinksOrdered.length; i++) {
+              dailyRevenue += prices[drinksOrdered[i]];
+          }
+          console.log(dailyRevenue);
+          myRevenueMessage.innerHTML='$' + dailyRevenue.toFixed(2);
+
+      }
 
 
      myImage.addEventListener('click', (function () { return coffeeMachine('brew');}))
      espresso.addEventListener('click',  (function () { return coffeeMachine('espresso');}))
      latte.addEventListener('click',  (function () { return coffeeMachine('latte');}))
-     hotChocolate.addEventListener('click',  (function () { return coffeeMachine('hot-chocolate');}))
+     hotChocolate.addEventListener('click',  (function () { return coffeeMachine('hot chocolate');}))
 
     // use this dictionary in further study step
 
